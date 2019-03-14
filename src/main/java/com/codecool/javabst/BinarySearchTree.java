@@ -17,7 +17,7 @@ public class BinarySearchTree {
 
     }
 
-    public void build() {
+    public Node build() {
         // TODO construct a binary search tree here
         rootNode = createRootNode();
         List<Node> nodesToSet = new LinkedList<>();
@@ -31,10 +31,19 @@ public class BinarySearchTree {
 
         }
 
+        return rootNode;
+
     }
 
     public boolean search(Integer toFind) {
         // TODO return true if the element has been found, false if its not in the tree.
+        Node actualNode = build();
+        while (actualNode != null) {
+
+            if (toFind == actualNode.getValue()) { return true; }
+            if (toFind > actualNode.getValue()) { actualNode = actualNode.getGreaterNode(); } else { actualNode = actualNode.getSmallerNode(); }
+
+        }
         return false;
     }
 
@@ -87,7 +96,7 @@ public class BinarySearchTree {
     private boolean isValidIndex(Integer index, Node actualNode) {
 
         if (index > 0 && !usedIndices.contains(index)) { return true; }
-        if (index == 0 && actualNode.getStartIndex() == 0) { return true; }
+        if (index == 0 && actualNode.getStartIndex() == 0 && !usedIndices.contains(index)) { return true; }
         return false;
     }
 

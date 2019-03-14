@@ -10,11 +10,14 @@ public class Main {
 
         ArrayList<Integer> numbers = new ArrayList<>();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 11; i++) {
             numbers.add(i * 2 + 5);
         }
 
-        BinarySearchTree myTree = BinarySearchTree.build(numbers);
+        System.out.println(numbers);
+
+        BinarySearchTree myTree = new BinarySearchTree(numbers);
+        myTree.build();
 
         // write some test code here
         System.out.println(myTree.search(7)); // should be true

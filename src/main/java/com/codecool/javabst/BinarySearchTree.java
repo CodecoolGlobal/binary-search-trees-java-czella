@@ -32,7 +32,6 @@ public class BinarySearchTree {
 
         }
 
-
     }
 
     public boolean search(Integer toFind) {
@@ -50,7 +49,8 @@ public class BinarySearchTree {
     public void add(Integer toAdd) {
         // TODO adds an element. Throws an error if it exist.
         Node actualNode = rootNode;
-        while (true) {
+        boolean foundPlaceForNewNode = false;
+        while (!foundPlaceForNewNode) {
 
             if (actualNode.getValue() == toAdd) { throw new ElementAlreadyExists("This element is already in the tree"); }
             if (toAdd > actualNode.getValue()) {
@@ -59,7 +59,7 @@ public class BinarySearchTree {
 
                     actualNode.setGreaterNode(new Node(toAdd));
                     System.out.println(actualNode);
-                    break;
+                    foundPlaceForNewNode = true;
 
                 } else { actualNode = actualNode.getGreaterNode(); }
 
@@ -69,7 +69,7 @@ public class BinarySearchTree {
 
                     actualNode.setSmallerNode(new Node(toAdd));
                     System.out.println(actualNode);
-                    break;
+                    foundPlaceForNewNode = true;
 
                 } else { actualNode = actualNode.getSmallerNode(); }
             }
@@ -85,10 +85,12 @@ public class BinarySearchTree {
         while (actualNode != null) {
 
             if (toRemove > actualNode.getValue()) {
+
                 if (actualNode.getGreaterNode().getValue() == toRemove) { actualNode.setGreaterNode(null); }
                 actualNode = actualNode.getGreaterNode();
 
             } else {
+
                 if (actualNode.getSmallerNode().getValue() == toRemove) { actualNode.setSmallerNode(null); }
                 actualNode = actualNode.getSmallerNode();
 

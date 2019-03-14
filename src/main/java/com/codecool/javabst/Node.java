@@ -60,8 +60,6 @@ public class Node {
                 "value=" + value +
                 ", smallerNode=" + smallerNode +
                 ", greaterNode=" + greaterNode +
-                ", startIndex=" + startIndex +
-                ", endIndex=" + endIndex +
                 '}';
     }
 }

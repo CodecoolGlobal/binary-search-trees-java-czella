@@ -80,6 +80,21 @@ public class BinarySearchTree {
 
     public void remove(Integer toRemove) {
         // TODO removes an element. Throws an error if its not on the tree.
+        if(!search(toRemove)) { throw new ElementNotFound("Element is not in the tree"); }
+        Node actualNode = rootNode;
+        while (actualNode != null) {
+
+            if (toRemove > actualNode.getValue()) {
+                if (actualNode.getGreaterNode().getValue() == toRemove) { actualNode.setGreaterNode(null); }
+                actualNode = actualNode.getGreaterNode();
+
+            } else {
+                if (actualNode.getSmallerNode().getValue() == toRemove) { actualNode.setSmallerNode(null); }
+                actualNode = actualNode.getSmallerNode();
+
+            }
+
+        }
     }
 
     private Node createRootNode() {

@@ -14,10 +14,11 @@ public class BinarySearchTree {
     public BinarySearchTree(List<Integer> elements) {
 
         this.originalElements = elements;
+        build();
 
     }
 
-    public Node build() {
+    public void build() {
         // TODO construct a binary search tree here
         rootNode = createRootNode();
         List<Node> nodesToSet = new LinkedList<>();
@@ -31,13 +32,12 @@ public class BinarySearchTree {
 
         }
 
-        return rootNode;
 
     }
 
     public boolean search(Integer toFind) {
         // TODO return true if the element has been found, false if its not in the tree.
-        Node actualNode = build();
+        Node actualNode = rootNode;
         while (actualNode != null) {
 
             if (toFind == actualNode.getValue()) { return true; }
@@ -49,6 +49,33 @@ public class BinarySearchTree {
 
     public void add(Integer toAdd) {
         // TODO adds an element. Throws an error if it exist.
+        Node actualNode = rootNode;
+        while (true) {
+
+            if (actualNode.getValue() == toAdd) { throw new ElementAlreadyExists("This element is already in the tree"); }
+            if (toAdd > actualNode.getValue()) {
+
+                if (actualNode.getGreaterNode() == null) {
+
+                    actualNode.setGreaterNode(new Node(toAdd));
+                    System.out.println(actualNode);
+                    break;
+
+                } else { actualNode = actualNode.getGreaterNode(); }
+
+            } else {
+
+                if (actualNode.getSmallerNode() == null) {
+
+                    actualNode.setSmallerNode(new Node(toAdd));
+                    System.out.println(actualNode);
+                    break;
+
+                } else { actualNode = actualNode.getSmallerNode(); }
+            }
+
+        }
+
     }
 
     public void remove(Integer toRemove) {

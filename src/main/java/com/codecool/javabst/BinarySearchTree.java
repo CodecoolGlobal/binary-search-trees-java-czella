@@ -39,7 +39,7 @@ public class BinarySearchTree {
         Node actualNode = rootNode;
         while (actualNode != null) {
 
-            if (toFind == actualNode.getValue()) { return true; }
+            if (toFind.equals(actualNode.getValue())) { return true; }
             if (toFind > actualNode.getValue()) { actualNode = actualNode.getGreaterNode(); } else { actualNode = actualNode.getSmallerNode(); }
 
         }
@@ -52,7 +52,7 @@ public class BinarySearchTree {
         boolean foundPlaceForNewNode = false;
         while (!foundPlaceForNewNode) {
 
-            if (actualNode.getValue() == toAdd) { throw new ElementAlreadyExists("This element is already in the tree"); }
+            if (actualNode.getValue().equals(toAdd)) { throw new ElementAlreadyExists("This element is already in the tree"); }
             if (toAdd > actualNode.getValue()) {
 
                 if (actualNode.getGreaterNode() == null) {
@@ -86,12 +86,12 @@ public class BinarySearchTree {
 
             if (toRemove > actualNode.getValue()) {
 
-                if (actualNode.getGreaterNode().getValue() == toRemove) { actualNode.setGreaterNode(null); }
+                if (actualNode.getGreaterNode().getValue().equals(toRemove)) { actualNode.setGreaterNode(null); }
                 actualNode = actualNode.getGreaterNode();
 
             } else {
 
-                if (actualNode.getSmallerNode().getValue() == toRemove) { actualNode.setSmallerNode(null); }
+                if (actualNode.getSmallerNode().getValue().equals(toRemove)) { actualNode.setSmallerNode(null); }
                 actualNode = actualNode.getSmallerNode();
 
             }

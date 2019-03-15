@@ -5,13 +5,13 @@ public class Node {
     private Integer value;
     private Node smallerNode;
     private Node greaterNode;
-    private Integer startIndex;
-    private Integer endIndex;
+    private Integer startIndexOfRemainingNodes;
+    private Integer endIndexOfRemainingNodes;
 
-    public Node(Integer value, Integer startIndex, Integer endIndex) {
+    public Node(Integer value, Integer startIndexOfRemainingNodes, Integer endIndexOfRemainingNodes) {
         this.value = value;
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
+        this.startIndexOfRemainingNodes = startIndexOfRemainingNodes;
+        this.endIndexOfRemainingNodes = endIndexOfRemainingNodes;
     }
 
     public Node(Integer value) {
@@ -34,13 +34,13 @@ public class Node {
         this.greaterNode = greaterNode;
     }
 
-    public Integer getStartIndex() {
-        return startIndex;
+    public Integer getStartIndexOfRemainingNodes() {
+        return startIndexOfRemainingNodes;
     }
 
 
-    public Integer getEndIndex() {
-        return endIndex;
+    public Integer getEndIndexOfRemainingNodes() {
+        return endIndexOfRemainingNodes;
     }
 
     public Integer getValue() {

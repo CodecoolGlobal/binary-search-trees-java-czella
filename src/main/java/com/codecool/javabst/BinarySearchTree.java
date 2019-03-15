@@ -58,7 +58,6 @@ public class BinarySearchTree {
                 if (actualNode.getGreaterNode() == null) {
 
                     actualNode.setGreaterNode(new Node(toAdd));
-                    System.out.println(actualNode);
                     foundPlaceForNewNode = true;
 
                 } else { actualNode = actualNode.getGreaterNode(); }
@@ -68,7 +67,6 @@ public class BinarySearchTree {
                 if (actualNode.getSmallerNode() == null) {
 
                     actualNode.setSmallerNode(new Node(toAdd));
-                    System.out.println(actualNode);
                     foundPlaceForNewNode = true;
 
                 } else { actualNode = actualNode.getSmallerNode(); }
@@ -111,21 +109,21 @@ public class BinarySearchTree {
 
         Integer indexOfActualNode = originalElements.indexOf(actualNode.getValue());
         Integer index;
-        Integer startIndex;
-        Integer endIndex;
+        Integer startIndexOfRemainingNodes;
+        Integer endIndexOfRemainingNodes;
         boolean isSmaller;
         switch (smallerOrGreater.toLowerCase()){
 
             case "smaller" :
-                index = (indexOfActualNode + actualNode.getStartIndex())/2;
-                startIndex = actualNode.getStartIndex();
-                endIndex = indexOfActualNode - 1;
+                index = (indexOfActualNode + actualNode.getStartIndexOfRemainingNodes())/2;
+                startIndexOfRemainingNodes = actualNode.getStartIndexOfRemainingNodes();
+                endIndexOfRemainingNodes = indexOfActualNode - 1;
                 isSmaller = true;
                 break;
             case "greater" :
-                index = (actualNode.getEndIndex() + indexOfActualNode + 1)/2;
-                startIndex = indexOfActualNode + 1;
-                endIndex = actualNode.getEndIndex();
+                index = (actualNode.getEndIndexOfRemainingNodes() + indexOfActualNode + 1)/2;
+                startIndexOfRemainingNodes = indexOfActualNode + 1;
+                endIndexOfRemainingNodes = actualNode.getEndIndexOfRemainingNodes();
                 isSmaller = false;
                 break;
             default:
@@ -135,7 +133,7 @@ public class BinarySearchTree {
 
         if (isValidIndex(index, actualNode)) {
 
-            Node newNode = new Node(originalElements.get(index), startIndex, endIndex);
+            Node newNode = new Node(originalElements.get(index), startIndexOfRemainingNodes, endIndexOfRemainingNodes);
             nodesToSet.add(newNode);
             if (isSmaller) { actualNode.setSmallerNode(newNode); } else { actualNode.setGreaterNode(newNode); }
             usedIndices.add(index);
@@ -147,7 +145,7 @@ public class BinarySearchTree {
     private boolean isValidIndex(Integer index, Node actualNode) {
 
         if (index > 0 && !usedIndices.contains(index)) { return true; }
-        if (index == 0 && actualNode.getStartIndex() == 0 && !usedIndices.contains(index)) { return true; }
+        if (index == 0 && actualNode.getStartIndexOfRemainingNodes() == 0 && !usedIndices.contains(index)) { return true; }
         return false;
     }
 

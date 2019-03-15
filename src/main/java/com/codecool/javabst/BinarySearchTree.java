@@ -26,8 +26,8 @@ public class BinarySearchTree {
         while (nodesToSet.size() > 0) {
 
             Node actualNode = ((LinkedList<Node>) nodesToSet).getFirst();
-            setSmallerChild(actualNode, nodesToSet);
-            setGreaterChild(actualNode, nodesToSet);
+            setChildNode("SMALLER",actualNode, nodesToSet);
+            setChildNode("GREATER", actualNode, nodesToSet);
             nodesToSet.remove(actualNode);
 
         }
@@ -107,31 +107,38 @@ public class BinarySearchTree {
 
     }
 
-    private void setSmallerChild(Node actualNode, List<Node> nodesToSet) {
+    private void setChildNode(String smallerOrGreater, Node actualNode, List<Node> nodesToSet) {
 
         Integer indexOfActualNode = originalElements.indexOf(actualNode.getValue());
-        Integer indexOfSmallerChild = (indexOfActualNode + actualNode.getStartIndex())/2;
-        if (isValidIndex(indexOfSmallerChild, actualNode)) {
+        Integer index;
+        Integer startIndex;
+        Integer endIndex;
+        boolean isSmaller;
+        switch (smallerOrGreater.toLowerCase()){
 
-            Node newSmallerNode = new Node(originalElements.get(indexOfSmallerChild), actualNode.getStartIndex(), indexOfActualNode - 1);
-            nodesToSet.add(newSmallerNode);
-            actualNode.setSmallerNode(newSmallerNode);
-            usedIndices.add(indexOfSmallerChild);
+            case "smaller" :
+                index = (indexOfActualNode + actualNode.getStartIndex())/2;
+                startIndex = actualNode.getStartIndex();
+                endIndex = indexOfActualNode - 1;
+                isSmaller = true;
+                break;
+            case "greater" :
+                index = (actualNode.getEndIndex() + indexOfActualNode + 1)/2;
+                startIndex = indexOfActualNode + 1;
+                endIndex = actualNode.getEndIndex();
+                isSmaller = false;
+                break;
+            default:
+                throw new IllegalArgumentException("Illegal value: " + smallerOrGreater);
 
         }
 
-    }
+        if (isValidIndex(index, actualNode)) {
 
-    private void setGreaterChild(Node actualNode, List<Node> nodesToSet) {
-
-        Integer indexOfActualNode = originalElements.indexOf(actualNode.getValue());
-        Integer indexOfGreaterChild = (actualNode.getEndIndex() + indexOfActualNode + 1)/2;
-        if (isValidIndex(indexOfGreaterChild, actualNode)) {
-
-            Node newGreaterNode = new Node(originalElements.get(indexOfGreaterChild), indexOfActualNode + 1, actualNode.getEndIndex());
-            nodesToSet.add(newGreaterNode);
-            actualNode.setGreaterNode(newGreaterNode);
-            usedIndices.add(indexOfGreaterChild);
+            Node newNode = new Node(originalElements.get(index), startIndex, endIndex);
+            nodesToSet.add(newNode);
+            if (isSmaller) { actualNode.setSmallerNode(newNode); } else { actualNode.setGreaterNode(newNode); }
+            usedIndices.add(index);
 
         }
 
